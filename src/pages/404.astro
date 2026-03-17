@@ -1,33 +1,15 @@
 ---
-import { Image } from "astro:assets";
 import MainLayout from "../layouts/MainLayout.astro";
 import { withBase } from "../utils/helpers";
-import heroImage from "../assets/images/pixeltrue-space-discovery.svg";
-import SpaceKeyboard from "../components/SpaceKeyboard.astro";
 import siteConfig from "../site.config";
 ---
 
-<MainLayout
-  activePage="404"
-  pageTitle={siteConfig.title + " | 404"}
-  showSubscribeForm={false}
->
-  <div class="flex flex-col items-center justify-center page-content">
-    <h1 class="sigmar-ff">404</h1>
-    <Image
-      class="cover-img"
-      src={heroImage}
-      alt={"Astronaut in space"}
-      width={400}
-      height={300}
-    />
-    <p>🧑‍🚀: Houston, we have a problem.</p>
-    <p>
-      We couldn't find that link. Verify the address or <a
-        class="font-medium underline"
-        href={withBase("/")}>Go Back Home</a
-      >
+<MainLayout activePage="404" pageTitle={siteConfig.title + " | 404"}>
+  <div class="flex flex-col items-center justify-center page-content my-16 text-center">
+    <h1 class="text-6xl font-bold mb-4">404</h1>
+    <p class="kanit-light text-lg mb-6">Page not found.</p>
+    <p class="kanit-light">
+      <a class="font-medium underline" href={withBase("/")}>Go back home</a>
     </p>
-    <SpaceKeyboard />
   </div>
 </MainLayout>

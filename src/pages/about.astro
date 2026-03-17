@@ -1,24 +1,219 @@
 ---
-import { Image } from "astro:assets";
 import MainLayout from "../layouts/MainLayout.astro";
 import siteConfig from "../site.config";
-import coverImage from "../assets/images/1.png";
+import { withBase } from "../utils/helpers";
+
+const campusImageOne = withBase("/resources/img/campus.jpg");
+const campusImageTwo = withBase("/resources/img/campus2.jpg");
+const campusImageThree = withBase("/resources/img/campus3.jpg");
+const jamfLogo = withBase("/resources/logos/JamfCEIlogo-light.png");
 ---
 
 <MainLayout activePage="about" pageTitle={siteConfig.title + " | About"}>
-  <div class="page-content">
-    <h1 class="sigmar-ff text-balance">{siteConfig.about?.title}</h1>
-    <Image
-      width={1024}
-      height={600}
-      loading="eager"
-      layout="constrained"
-      class="rounded-4xl mb-8 mx-auto"
-      src={coverImage}
-      alt="An Astronaut walking on a terrain"
-    />
-    <p class="kanit-light text-left">
-      {siteConfig.about?.text}
+  <div class="page-content my-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-balance mb-8">About the MCRI</h1>
+
+    <div class="space-y-6 kanit-light text-left leading-relaxed">
+      <p>
+        The MCRI (Matter Career Readiness Institute) is a post-secondary institution
+        located in Victoria Falls, Zimbabwe. Students across Zimbabwe who have attended our
+        MATTER Innovation Hubs are able to apply to our program by recommendation from their
+        facilitator.
+      </p>
+
+      <p>
+        Throughout all of our programs, we are very purposeful in everything we do.
+        All of our buildings are environmentally friendly, powered 100% by solar.
+        They are also built with accessibility in mind, to ensure every student is
+        able to participate like their peers.
+      </p>
+
+      <p>
+        We also ensure that at <strong>least 50% of our students are girls and young women</strong>.
+        In order to create change in how places view and treat their women, it starts early by
+        teaching boys and young men how to respect women. By being vigilant in including women
+        in these spaces, we break down barriers and show that women belong in all places that men do.
+      </p>
+    </div>
+
+    <!-- Campus Gallery -->
+    <div class="my-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-balance mb-6 text-center">Our Campus</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <button class="gallery-item overflow-hidden rounded-xl border-2 border-primary-blue/20 hover:border-primary-blue/50 transition-all cursor-pointer group" data-img={campusImageOne}>
+          <img
+            src={campusImageOne}
+            alt="MCRI Campus - View 1"
+            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </button>
+        <button class="gallery-item overflow-hidden rounded-xl border-2 border-primary-blue/20 hover:border-primary-blue/50 transition-all cursor-pointer group" data-img={campusImageTwo}>
+          <img
+            src={campusImageTwo}
+            alt="MCRI Campus - View 2"
+            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </button>
+        <button class="gallery-item overflow-hidden rounded-xl border-2 border-primary-blue/20 hover:border-primary-blue/50 transition-all cursor-pointer group" data-img={campusImageThree}>
+          <img
+            src={campusImageThree}
+            alt="MCRI Campus - View 3"
+            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </button>
+      </div>
+      <p class="text-xs kanit-light text-center mt-4 opacity-70">
+        Click any image to view larger
+      </p>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 p-4" style="display: none;">
+      <button id="close-lightbox" class="absolute top-4 right-4 text-white text-4xl hover:text-primary-blue transition-colors" aria-label="Close">&times;</button>
+      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl" />
+    </div>
+
+    <script>
+      function setupGallery() {
+        const galleryItems = document.querySelectorAll<HTMLButtonElement>(".gallery-item");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img") as HTMLImageElement | null;
+        const closeLightbox = document.getElementById("close-lightbox");
+
+        if (!lightbox || !lightboxImg || !closeLightbox) {
+          return;
+        }
+
+        galleryItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            const imgSrc = item.getAttribute("data-img");
+            const image = item.querySelector("img");
+
+            if (!imgSrc || !image) {
+              return;
+            }
+
+            const imgAlt = image.getAttribute("alt") ?? "";
+            lightboxImg.src = imgSrc;
+            lightboxImg.alt = imgAlt;
+            lightbox.style.display = "flex";
+          });
+        });
+
+        closeLightbox.addEventListener("click", () => {
+          lightbox.style.display = "none";
+        });
+
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) {
+            lightbox.style.display = "none";
+          }
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && lightbox.style.display === "flex") {
+            lightbox.style.display = "none";
+          }
+        });
+      }
+
+      setupGallery();
+    </script>
+
+    <hr class="my-12 border-gray-500/30" />
+
+    <div class="flex justify-center mb-8">
+      <a
+        href={siteConfig.partnerLinks.jamfCei}
+        target="_blank"
+        rel="noreferrer"
+        class="hover:opacity-80 transition-opacity"
+      >
+        <img
+          src={jamfLogo}
+          alt="Jamf Community Education Initiatives"
+          class="h-16 w-auto"
+        />
+      </a>
+    </div>
+
+    <div class="space-y-6 kanit-light text-left leading-relaxed">
+      <p>
+        The Jamf Community Education Initiatives team lives Jamf's values of selflessness
+        and relentless self-improvement out in the world, where we enable students to think
+        creatively to solve problems, learn the value of being better together by learning
+        how to collaborate, and how to empathize with others to be a well-rounded individual
+        out in the world.
+      </p>
+
+      <p>
+        We do this by implementing the <strong>TEAL+</strong> (Technology-enabled Active Learning,
+        plus personalized learning) model in everything that we do and pairing it with our
+        <strong>Kinder-to-Career</strong> initiatives. Our impact is global, covering
+        <strong>8 countries</strong>, with the majority of our focus in Zimbabwe.
+      </p>
+    </div>
+
+    <hr class="my-12 border-gray-500/30" />
+
+    <h2 class="text-2xl sm:text-3xl font-bold text-balance mb-6">Our Team</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="text-center p-6 rounded-xl border border-gray-500/20">
+        <div class="w-28 h-28 rounded-full bg-gray-300/30 mx-auto mb-4 flex items-center justify-center">
+          <span class="text-4xl">👤</span>
+        </div>
+        <h4 class="font-semibold text-lg">Valeria</h4>
+        <p class="text-sm kanit-light mt-1 opacity-70">Jamf CEI</p>
+        <p class="text-xs kanit-light mt-3 opacity-60">Bio and LinkedIn coming soon</p>
+      </div>
+      <div class="text-center p-6 rounded-xl border border-gray-500/20">
+        <div class="w-28 h-28 rounded-full bg-gray-300/30 mx-auto mb-4 flex items-center justify-center">
+          <span class="text-4xl">👤</span>
+        </div>
+        <h4 class="font-semibold text-lg">Kelly</h4>
+        <p class="text-sm kanit-light mt-1 opacity-70">Jamf CEI</p>
+        <p class="text-xs kanit-light mt-3 opacity-60">Bio and LinkedIn coming soon</p>
+      </div>
+      <div class="text-center p-6 rounded-xl border border-gray-500/20">
+        <div class="w-28 h-28 rounded-full bg-gray-300/30 mx-auto mb-4 flex items-center justify-center">
+          <span class="text-4xl">👤</span>
+        </div>
+        <h4 class="font-semibold text-lg">Salty</h4>
+        <p class="text-sm kanit-light mt-1 opacity-70">Jamf CEI</p>
+        <p class="text-xs kanit-light mt-3 opacity-60">Bio and LinkedIn coming soon</p>
+      </div>
+    </div>
+
+    <hr class="my-12 border-gray-500/30" />
+
+    <h2 class="text-2xl sm:text-3xl font-bold text-balance mb-6">Get in Touch</h2>
+    <p class="kanit-light leading-relaxed">
+      Interested in learning more about the MCRI or supporting our mission?
+      Reach out to the Jamf Community Education Initiatives team.
     </p>
+    <div class="mt-4">
+      {
+        siteConfig.socialLinks.map((profile) => (
+          <a
+            href={profile.href}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-500/30 kanit-light text-sm hover:opacity-80"
+          >
+            {profile.text === 'LinkedIn' ? (
+              <>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-label="LinkedIn">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </>
+            ) : (
+              profile.text
+            )}
+          </a>
+        ))
+      }
+    </div>
   </div>
 </MainLayout>

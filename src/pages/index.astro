@@ -1,77 +1,184 @@
 ---
-import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import siteConfig from "../site.config";
-import { sortItemsByDateDesc, withBase } from "../utils/helpers";
-import PostCardPreview from "../components/PostCardPreview.astro";
 import Button from "../components/Button.astro";
-import { Image } from "astro:assets";
-import heroImage from "../assets/images/pixeltrue-space-discovery.svg";
-import ArrowRight from "../icons/ArrowRight.astro";
+import { withBase } from "../utils/helpers";
 
-const allPosts = (await getCollection("blogs")).sort(sortItemsByDateDesc);
+const studentsImage = withBase("/resources/img/students.jpg");
+const jamfLogo = withBase("/resources/logos/JamfCEIlogo-light.png");
 ---
 
-<MainLayout
-  activePage="home"
-  pageTitle={siteConfig.title + " | An Astro Personal Blog Template"}
->
-  <div
-    class="jumbo-banner flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4 my-12 gap-6"
-  >
-    <div class="w-full sm:w-fit sm:max-w-1/2">
+<MainLayout activePage="home" pageTitle={siteConfig.title}>
+  <!-- Hero Section -->
+  <section class="hero flex flex-col items-center text-center w-full px-4 my-16 gap-6">
+    {
+      siteConfig.hero?.eyebrowText && (
+        <span class="tag rounded-full text-xs px-3 py-1 border border-gray-500 kanit-light">
+          {siteConfig.hero.eyebrowText}
+        </span>
+      )
+    }
+    <h1 class="text-4xl sm:text-5xl font-bold leading-tight text-balance">
+      {siteConfig.hero?.title}
+    </h1>
+    <p class="kanit-regular text-balance text-base sm:text-lg max-w-2xl">
+      {siteConfig.hero?.text}
+    </p>
+    <div class="flex flex-wrap items-center gap-4 mt-4">
       {
-        siteConfig.hero?.eyebrowText && (
-          <span class="tag rounded-full text-xs px-2 py-0 border border-gray-500 kanit-light">
-            {siteConfig.hero?.eyebrowText}
-          </span>
-        )
+        siteConfig.hero?.actions?.map((action, index) => (
+          <Button
+            href={action.href}
+            class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}
+          >
+            {action.text}
+          </Button>
+        ))
       }
-      <h1 class="sigmar-ff leading-tight text-balance sm:pt-0!">
-        {siteConfig.hero?.title}
-      </h1>
-      <p class="kanit-regular text-balance text-xs sm:text-base">
-        {siteConfig.hero?.text}
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="page-content my-16">
+    <h2 class="text-2xl sm:text-3xl font-bold text-balance mb-6">About the MCRI</h2>
+    <div class="space-y-4 kanit-light text-left leading-relaxed">
+      <p>
+        The MCRI is a post-secondary institution located in Victoria Falls, Zimbabwe.
+        Students across Zimbabwe who have attended our MATTER Innovation Hubs are able
+        to apply to our program by recommendation from their facilitator.
       </p>
-      <div
-        class="flex flex-wrap items-center text-xs sm:text-base gap-x-2 gap-y-8 mt-3 sm:mt-12"
-      >
-        {
-          siteConfig.hero?.actions?.map((action, index) => (
-            <Button
-              href={action.href}
-              class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}
-            >
-              {action.text}
-            </Button>
-          ))
-        }
-      </div>
+      <p>
+        Throughout all of our programs, we are very purposeful in everything we do.
+        All of our buildings are environmentally friendly, powered 100% by solar.
+        They are also built with accessibility in mind, to ensure every student is
+        able to participate like their peers.
+      </p>
+      <p>
+        We also ensure that at <strong>least 50% of our students are girls and young women</strong>.
+        In order to create change in how places view and treat their women, it starts
+        early by teaching boys and young men how to respect women. By being vigilant in
+        including women in these spaces, we break down barriers and show that women
+        belong in all places that men do.
+      </p>
     </div>
-    <div class="w-full sm:w-fit sm:max-w-1/2">
-      <!-- {siteConfig.hero?.image && <Image src={siteConfig.hero?.image?.src} alt={siteConfig.hero?.image?.alt || ""} inferSize={true} />} -->
-      <Image
-        class="cover-img"
-        src={heroImage}
-        alt={"Astronaut in space"}
-        width={400}
-        height={300}
+
+    <!-- Students Photo -->
+    <div class="mt-10 mb-12">
+      <img
+        src={studentsImage}
+        alt="MCRI Students in Victoria Falls, Zimbabwe"
+        class="w-full rounded-2xl shadow-lg border-2 border-primary-blue/20"
+        style="max-width: 100%; height: auto;"
       />
+      <p class="text-xs kanit-light text-center mt-3 opacity-70">
+        MCRI students at our campus in Victoria Falls, Zimbabwe
+      </p>
     </div>
-  </div>
-  <div class="page-content">
-    <div id="posts" class="flex flex-col items-center justify-center w-full">
-      <h2 class="sigmar-ff text-balance pt-0! pb-8!">Recent Stories</h2>
-      <div class="flex flex-col gap-8 max-w-full text-left">
-        {
-          allPosts
-            .slice(0, siteConfig.recentPostLimit)
-            .map((post) => <PostCardPreview post={post} />)
-        }
+
+    <!-- Employment Stats -->
+    <div class="mt-12 p-6 rounded-2xl border border-gray-500/30">
+      <h3 class="text-xl font-semibold mb-4">Employment Impact</h3>
+      <p class="kanit-light mb-4">
+        By 2026: 30 Zimbabweans employed &amp; 2,000 learning.
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div class="p-4">
+          <span class="text-3xl font-bold block">13</span>
+          <span class="text-sm kanit-light">Jamf</span>
+        </div>
+        <div class="p-4">
+          <span class="text-3xl font-bold block">9</span>
+          <span class="text-sm kanit-light">Mains'l</span>
+        </div>
+        <div class="p-4">
+          <span class="text-3xl font-bold block">1</span>
+          <span class="text-sm kanit-light">Tradition Bank</span>
+        </div>
+        <div class="p-4">
+          <span class="text-3xl font-bold block">1</span>
+          <span class="text-sm kanit-light">MATTER NGO</span>
+        </div>
       </div>
-      <Button href={withBase("/blog")} class="space-btn-filled mt-8">
-        View All Posts <ArrowRight class="w-5 h-5 fill-current ml-4" />
-      </Button>
+      <p class="text-xs kanit-light text-center mt-2 opacity-70">
+        Students employed full-time, working remotely in Zimbabwe
+      </p>
     </div>
-  </div>
+  </section>
+
+  <!-- Jamf CEI Team Section -->
+  <section id="team" class="page-content my-16">
+    <div class="flex justify-center mb-8">
+      <a
+        href={siteConfig.partnerLinks.jamfCei}
+        target="_blank"
+        rel="noreferrer"
+        class="hover:opacity-80 transition-opacity"
+      >
+        <img
+          src={jamfLogo}
+          alt="Jamf Community Education Initiatives"
+          class="h-16 w-auto"
+        />
+      </a>
+    </div>
+    <div class="space-y-4 kanit-light text-left leading-relaxed">
+      <p>
+        The Jamf Community Education Initiatives team lives Jamf's values of selflessness
+        and relentless self-improvement out in the world, where we enable students to think
+        creatively to solve problems, learn the value of being better together by learning
+        how to collaborate, and how to empathize with others to be a well-rounded individual
+        out in the world.
+      </p>
+      <p>
+        We do this by implementing the <strong>TEAL+</strong> (Technology-enabled Active Learning,
+        plus personalized learning) model in everything that we do and pairing it with our
+        <strong>Kinder-to-Career</strong> initiatives. Our impact is global, covering
+        <strong>8 countries</strong>, with the majority of our focus in Zimbabwe.
+      </p>
+    </div>
+
+    <!-- Team Members (placeholder for photos/bios) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+      <div class="text-center p-6 rounded-xl border border-gray-500/20">
+        <div class="w-24 h-24 rounded-full bg-gray-300/30 mx-auto mb-4 flex items-center justify-center">
+          <span class="text-3xl">👤</span>
+        </div>
+        <h4 class="font-semibold">Valeria</h4>
+        <p class="text-xs kanit-light mt-1 opacity-70">Jamf CEI</p>
+      </div>
+      <div class="text-center p-6 rounded-xl border border-gray-500/20">
+        <div class="w-24 h-24 rounded-full bg-gray-300/30 mx-auto mb-4 flex items-center justify-center">
+          <span class="text-3xl">👤</span>
+        </div>
+        <h4 class="font-semibold">Kelly</h4>
+        <p class="text-xs kanit-light mt-1 opacity-70">Jamf CEI</p>
+      </div>
+      <div class="text-center p-6 rounded-xl border border-gray-500/20">
+        <div class="w-24 h-24 rounded-full bg-gray-300/30 mx-auto mb-4 flex items-center justify-center">
+          <span class="text-3xl">👤</span>
+        </div>
+        <h4 class="font-semibold">Salty</h4>
+        <p class="text-xs kanit-light mt-1 opacity-70">Jamf CEI</p>
+      </div>
+    </div>
+    <p class="text-xs kanit-light text-center mt-4 opacity-60">
+      Team photos, titles, bios, and LinkedIn links coming soon.
+    </p>
+  </section>
+
+  <!-- Technical Curriculum Section -->
+  <section id="curriculum" class="page-content my-16">
+    <h2 class="text-2xl sm:text-3xl font-bold text-balance mb-6">
+      Technical Curriculum
+    </h2>
+    <p class="kanit-light text-left leading-relaxed mb-6">
+      Jamf Community Education Initiatives creates and supports the technical curriculum
+      at the MCRI by aligning what departments are hiring for and the required skillsets
+      for the students — covering Apple, Swift, Jamf certifications, essential skills,
+      Agentic AI, and more.
+    </p>
+    <Button href={withBase('/curriculum')} class="space-btn-filled">
+      View Full Curriculum
+    </Button>
+  </section>
 </MainLayout>

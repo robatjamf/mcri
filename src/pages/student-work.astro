@@ -1,0 +1,122 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import siteConfig from "../site.config";
+---
+
+<MainLayout activePage="student-work" pageTitle={siteConfig.title + " | Student Work"}>
+  <div class="page-content my-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-balance mb-4 text-left">
+      Student Work
+    </h1>
+    <p class="kanit-light text-left leading-relaxed mb-12 max-w-3xl">
+      Our students create real-world projects as part of their curriculum, applying their skills
+      in Swift development, Jamf administration, and agentic AI to solve meaningful problems.
+    </p>
+
+    <!-- Student Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- Project 1 -->
+      <div class="project-card group rounded-2xl border border-gray-500/20 overflow-hidden hover:border-action-orange transition-all duration-300">
+        <!-- Project Preview -->
+        <div class="aspect-video bg-gradient-to-br from-primary-blue to-action-orange flex items-center justify-center relative overflow-hidden">
+          <div class="absolute inset-0 bg-black/12"></div>
+          <div class="relative z-10 text-center">
+            <div class="text-6xl mb-4">📱</div>
+            <div class="text-white font-bold text-2xl px-4">Task Manager Pro</div>
+          </div>
+          <!-- Decorative elements -->
+          <div class="absolute top-4 right-4 w-16 h-16 bg-white/20 rounded-full blur-xl"></div>
+          <div class="absolute bottom-4 left-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="p-6">
+          <h3 class="font-semibold text-xl mb-2">Task Manager Pro</h3>
+          <p class="kanit-light text-sm mb-4 opacity-80">
+            A Swift-based iOS application helping students organize their daily tasks
+            with smart notifications and priority management.
+          </p>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="px-3 py-1 rounded-full text-xs bg-blue-500/10 text-blue-600 border border-blue-500/20">Swift</span>
+            <span class="px-3 py-1 rounded-full text-xs bg-primary-blue/10 text-primary-blue border border-primary-blue/20">SwiftUI</span>
+            <span class="px-3 py-1 rounded-full text-xs bg-action-orange/10 text-action-orange border border-action-orange/20">iOS</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center text-white text-xs font-bold">
+                TR
+              </div>
+              <span class="text-sm kanit-light">Tendai R.</span>
+            </div>
+            <span class="text-xs opacity-50 kanit-light">Class of 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card group rounded-2xl border border-gray-500/20 overflow-hidden hover:border-action-orange transition-all duration-300">
+        <!-- Project Preview -->
+        <div class="aspect-video bg-gradient-to-br from-sky-tint to-primary-blue flex items-center justify-center relative overflow-hidden">
+          <div class="absolute inset-0 bg-black/12"></div>
+          <div class="relative z-10 text-center">
+            <div class="text-6xl mb-4">🌍</div>
+            <div class="text-white font-bold text-2xl px-4">EcoTrack Zimbabwe</div>
+          </div>
+          <!-- Decorative elements -->
+          <div class="absolute top-4 left-4 w-20 h-20 bg-white/20 rounded-full blur-xl"></div>
+          <div class="absolute bottom-4 right-4 w-16 h-16 bg-white/10 rounded-full blur-2xl"></div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="p-6">
+          <h3 class="font-semibold text-xl mb-2">EcoTrack Zimbabwe</h3>
+          <p class="kanit-light text-sm mb-4 opacity-80">
+            A sustainability tracking app that helps local communities monitor solar
+            energy usage and environmental impact across Zimbabwe.
+          </p>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="px-3 py-1 rounded-full text-xs bg-green-500/10 text-green-600 border border-green-500/20">Swift</span>
+            <span class="px-3 py-1 rounded-full text-xs bg-cyan-500/10 text-cyan-700 border border-cyan-500/20">Data Science</span>
+            <span class="px-3 py-1 rounded-full text-xs bg-emerald-500/10 text-emerald-700 border border-emerald-500/20">Sustainability</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-white text-xs font-bold">
+                CM
+              </div>
+              <span class="text-sm kanit-light">Chipo M.</span>
+            </div>
+            <span class="text-xs opacity-50 kanit-light">Class of 2025</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Coming Soon Notice -->
+    <div class="mt-12 p-8 rounded-2xl border border-gray-500/15 text-center bg-gradient-to-br from-transparent to-gray-500/5">
+      <div class="text-4xl mb-4">🚀</div>
+      <h3 class="font-semibold text-lg mb-2">More Projects Coming Soon</h3>
+      <p class="kanit-light opacity-80 max-w-xl mx-auto">
+        Our students are constantly building innovative solutions. Check back soon to see more
+        amazing work from the MCRI community.
+      </p>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .project-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+</style>

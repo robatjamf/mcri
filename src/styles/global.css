@@ -1,68 +1,62 @@
-@import url("animate.css");
 @import url("fonts.css");
 @import "tailwindcss";
 
-/* 0. color variables & fonts */
-/* 1. html elements */
-/* 2. utilities */
-
-/* 0. color variables & fonts */
 :root {
-  --space-red: #90393a;
-  --space-yellow: #ffff85;
-  --space-sand: #e2d1c3;
-  --space-stone: #434343;
+  --primary-blue: #0F75BC;
+  --action-orange: #F1592A;
+  --deep-navy: #0A2D44;
+  --soft-cloud: #F4F7F9;
+  --cool-grey: #8E9DA8;
+  --sky-tint: #6CB4EE;
+  --amber-glow: #FF9E1B;
+  --space-red: var(--action-orange);
+  --space-yellow: var(--amber-glow);
+  --space-sand: var(--soft-cloud);
+  --space-stone: var(--deep-navy);
 }
-
-/* Required to ensure dark: modifiers work when manually toggling mode */
-/* REF: https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually */
-@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: "Kanit", "sans-serif";
-  --color-space-red: var(--space-red);
-  --color-space-yellow: var(--space-yellow);
-  --color-space-sand: var(--space-sand);
-  --color-space-stone: var(--space-stone);
+  --color-primary-blue: var(--primary-blue);
+  --color-action-orange: var(--action-orange);
+  --color-deep-navy: var(--deep-navy);
+  --color-soft-cloud: var(--soft-cloud);
+  --color-cool-grey: var(--cool-grey);
+  --color-sky-tint: var(--sky-tint);
+  --color-amber-glow: var(--amber-glow);
+  --color-space-red: var(--action-orange);
+  --color-space-yellow: var(--amber-glow);
+  --color-space-sand: var(--soft-cloud);
+  --color-space-stone: var(--deep-navy);
   --color-whitesmoke: whitesmoke;
 }
 
-/* 1. html elements */
 html,
 body {
-  @apply mx-0 my-auto min-h-screen p-0 text-base;
+  @apply m-0 min-h-screen p-0;
+  font-size: 115%;
   overscroll-behavior: none;
 }
 
-html.dark body {
+body {
   background-image: linear-gradient(
-    to bottom,
-    var(--color-space-stone) 0%,
-    black 100%
+    180deg,
+    #ffffff 0%,
+    var(--soft-cloud) 100%
   );
-  @apply bg-black bg-cover bg-no-repeat text-whitesmoke;
+  @apply bg-cover bg-no-repeat;
+  color: var(--deep-navy);
 }
 
-html.light body {
-  /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
-  background-image: linear-gradient(180deg, #fdfcfb 0%, #e2d1c3 100%);
-  @apply bg-space-sand bg-cover bg-no-repeat text-black;
-}
-
-/* semantic elements */
 header {
-  @apply sticky top-4 z-20 mr-auto ml-auto flex w-full max-w-3xl flex-col items-center justify-center px-0 py-0 text-base;
+  @apply sticky top-4 z-20 mx-auto flex w-full max-w-5xl flex-col items-center justify-center px-0 py-0 text-base;
 }
 
 header > nav {
-  @apply flex flex-row items-center justify-between gap-2 rounded-4xl px-5 py-2 text-xs backdrop-blur-3xl sm:gap-8 sm:py-3 sm:text-base;
-  /* inner glow 👇 */
+  @apply relative flex flex-row items-center justify-between gap-2 rounded-full border border-primary-blue/12 bg-white/90 px-5 py-3 text-xs backdrop-blur-xl sm:gap-8 sm:text-base;
   box-shadow:
-    inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
-    /* shadow ring 👇 */ 0 0 0 1px hsla(0, 0%, 0%, 0.05),
-    /* multiple soft shadows 👇 */ 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
-    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
-    0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+    0 0 0 1px rgb(15 117 188 / 0.03),
+    0 14px 30px rgb(10 45 68 / 0.08);
 }
 
 main {
@@ -70,7 +64,7 @@ main {
 }
 
 footer {
-  @apply mx-auto mt-12 flex w-full max-w-3xl flex-col flex-wrap items-center justify-center gap-4;
+  @apply mx-auto mt-12 flex w-full max-w-5xl flex-col flex-wrap items-center justify-center gap-4;
 }
 
 h1 {
@@ -89,48 +83,55 @@ img {
   @apply h-auto max-w-full rounded-xl;
 }
 
-/* links */
 a.button-link:not(:disabled),
 button.button-link:not(:disabled) {
-  @apply inline-flex cursor-pointer items-center justify-center rounded-full border px-6 py-2 leading-tight transition hover:border-space-red hover:text-space-red sm:px-8 hover:dark:border-space-yellow hover:dark:text-space-yellow;
+  @apply inline-flex cursor-pointer items-center justify-center rounded-full border px-6 py-2 leading-tight transition sm:px-8;
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
 }
+
+a.button-link:not(:disabled):hover,
+button.button-link:not(:disabled):hover {
+  border-color: var(--action-orange);
+  color: var(--action-orange);
+}
+
 a.button-link.space-btn-filled:not(:disabled),
 button.button-link.space-btn-filled:not(:disabled) {
-  @apply bg-black text-whitesmoke hover:border-space-red hover:bg-space-red dark:bg-whitesmoke dark:text-black dark:hover:border-space-yellow dark:hover:bg-space-yellow;
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
+  color: white;
 }
+
+a.button-link.space-btn-filled:not(:disabled):hover,
+button.button-link.space-btn-filled:not(:disabled):hover {
+  background-color: var(--action-orange);
+  border-color: var(--action-orange);
+}
+
 a.button-link.space-btn-outlined:not(:disabled),
 button.button-link.space-btn-outlined:not(:disabled) {
-  @apply border border-black bg-transparent text-black hover:border-space-red hover:text-space-red dark:border-whitesmoke dark:bg-transparent dark:text-whitesmoke dark:hover:border-space-yellow dark:hover:text-space-yellow;
+  @apply bg-transparent;
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
 }
 
-html.dark a:not(.button-link) {
-  @apply text-whitesmoke;
+a.button-link.space-btn-outlined:not(:disabled):hover,
+button.button-link.space-btn-outlined:not(:disabled):hover {
+  border-color: var(--action-orange);
+  color: var(--action-orange);
 }
 
-html.light a:not(.button-link) {
-  @apply text-black;
+a:not(.button-link) {
+  color: var(--primary-blue);
 }
 
-html.light a:not(.button-link):hover {
-  @apply text-space-red;
-}
-
-html.dark a:not(.button-link):hover {
-  @apply text-space-yellow;
+a:not(.button-link):hover {
+  color: var(--action-orange);
 }
 
 .page-content {
   @apply my-12 w-full px-4 text-center;
-}
-
-@keyframes cursor-blink {
-  0% {
-    opacity: 0;
-  }
-}
-
-.blinking {
-  animation: cursor-blink 1.2s steps(2) infinite;
 }
 
 @media (orientation: portrait) {

@@ -12,10 +12,11 @@ const {
 
 {
   links?.map((link) => {
+    const linkSlug = link.text.toLowerCase().replace(/\s+/g, "-");
     const classNames = [
-      isMobileLink ? "close-menu" : "",
-      activePage === link.text.toLowerCase()
-        ? "text-space-red! dark:text-space-yellow!"
+      isMobileLink ? "close-menu block text-lg" : "",
+      activePage === linkSlug
+        ? "text-action-orange!"
         : "",
     ]
       .join(" ")

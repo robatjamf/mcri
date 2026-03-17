@@ -1,56 +1,90 @@
 ---
 import siteConfig from "../site.config";
-import SiteIdentity from "./SiteIdentity.astro";
+import { withBase } from "../utils/helpers";
 const currentYear = new Date().getFullYear();
+const jamfLogo = withBase("/resources/logos/JamfCEIlogo-light.png");
+const matterLogo = withBase("/resources/logos/matterlogo-light.png");
 ---
 
-<footer class="kanit-light text-xs sm:text-sm">
-  <div
-    class="footer-primary flex flex-col items-center justify-center min-w-full border-t border-gray-500/50"
-  >
-    <div
-      class="flex flex-row items-center justify-around sm:justify-center gap-2 sm:gap-6 pt-6 pb-3 sm:px-6 text-center"
-    >
-      {
-        siteConfig.footerNavLinks?.map((link) => (
-          <a href={link.href} title={link.text}>
-            {link.text}
+<footer class="mt-16 border-t-2 border-primary-blue/20">
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <h3 class="font-bold text-lg mb-3" style="color: var(--primary-blue);">MCRI</h3>
+        <p class="kanit-light text-sm leading-relaxed opacity-80">
+          {siteConfig.footerBlurb}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-lg mb-3" style="color: var(--primary-blue);">Quick Links</h3>
+        <ul class="space-y-2 kanit-light text-sm">
+          {
+            siteConfig.headerNavLinks?.map((link) => (
+              <li>
+                <a href={link.href} class="hover:text-action-orange transition-colors">
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-lg mb-3" style="color: var(--primary-blue);">Connect</h3>
+        <div class="flex flex-col gap-3">
+          {
+            siteConfig.socialLinks?.map((link) => (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center gap-2 hover:text-action-orange transition-colors kanit-light text-sm"
+              >
+                {link.text === 'LinkedIn' && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                )}
+                <span>{link.text}</span>
+              </a>
+            ))
+          }
+          <a
+            href={siteConfig.partnerLinks.jamfCei}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity mt-2"
+          >
+            <img
+              src={jamfLogo}
+              alt="Jamf Community Education Initiatives"
+              class="w-auto"
+              style="height: 45px; width: auto;"
+            />
           </a>
-        ))
-      }
-      <!-- Hi! -->
-      <!-- Feel free to remove the below link or keep it to share your love for this theme! -->
-      <a
-        href="https://github.com/djsiddz/space-ahead"
-        title="Download Space Ahead ✨ Astro Theme"
-        target="_blank">Download Theme</a
-      >
-      <!-- Thank you! -->
-    </div>
-  </div>
-  <div
-    class="footer-secondary flex flex-col sm:flex-row items-center justify-between gap-6 min-w-full"
-  >
-    <div class="flex flex-row gap-2 items-center justify-start text-balance">
-      <span>&copy; {currentYear}</span>
-      {siteConfig.title}. All rights reserved.
-    </div>
-    <div class="flex flex-row gap-4 items-center justify-end-safe">
-      {
-        siteConfig.socialLinks?.map((link) => (
-          <a href={link.href} title={link.text} target="_blank">
-            {link.text}
+          <a
+            href={siteConfig.partnerLinks.matter}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
+            <img
+              src={matterLogo}
+              alt="MATTER NGO"
+              class="w-auto"
+              style="height: 45px; width: auto;"
+            />
           </a>
-        ))
-      }
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="footer-identity h-40 sm:h-18 text-center overflow-clip sticky bottom-0 items-end"
-  >
-    <span
-      class="sigmar-ff text-8xl sm:text-[6.5rem] leading-none text-whitesmoke/50 dark:text-gray-300/30"
-      >{siteConfig.title}</span
-    >
+
+    <div class="pt-6 border-t border-gray-500/20 text-center">
+      <p class="kanit-light text-sm opacity-70">
+        &copy; {currentYear} MCRI. All rights reserved.
+      </p>
+    </div>
   </div>
 </footer>
