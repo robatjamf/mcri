@@ -16,9 +16,20 @@ The workflow at `.github/workflows/deploy.yml` now runs:
 2. `pnpm check`
 3. `npm test`
 4. `pnpm build`
-5. upload + deploy to GitHub Pages
+5. package `dist/` as the required GitHub Pages tarball artifact
+6. upload + deploy to GitHub Pages
 
 Pushes to `main` and manual workflow dispatches both publish the current site build.
+
+## Action Runtime Strategy
+
+The workflow uses:
+
+- `actions/checkout@v5`
+- `actions/setup-node@v5`
+- `actions/upload-artifact@v6`
+
+This avoids the Node 20 deprecation path for JavaScript actions and replaces the older `upload-pages-artifact` helper with a direct Pages-compatible artifact upload.
 
 ## Local Verification
 
