@@ -16,8 +16,8 @@ The workflow at `.github/workflows/deploy.yml` now runs:
 2. `pnpm check`
 3. `npm test`
 4. `pnpm build`
-5. package `dist/` as the required GitHub Pages tarball artifact
-6. upload + deploy to GitHub Pages
+5. upload the Pages artifact from `dist/`
+6. deploy to GitHub Pages
 
 Pushes to `main` and manual workflow dispatches both publish the current site build.
 
@@ -26,10 +26,11 @@ Pushes to `main` and manual workflow dispatches both publish the current site bu
 The workflow uses:
 
 - `actions/checkout@v5`
+- `actions/configure-pages@v5`
 - `actions/setup-node@v5`
-- `actions/upload-artifact@v6`
+- `actions/upload-pages-artifact@v4`
 
-This avoids the Node 20 deprecation path for JavaScript actions and replaces the older `upload-pages-artifact` helper with a direct Pages-compatible artifact upload.
+This avoids the Node 20 deprecation path for the actions that triggered the warning and keeps the Pages deployment flow aligned with GitHub's recommended workflow.
 
 ## Local Verification
 
